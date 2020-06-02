@@ -21,13 +21,21 @@ typedef enum {
   True
 } Bool;
 
+typedef struct
+{
+  Node_ptr root;
+} Tree;
+
+typedef Tree * Tree_ptr;
+
 typedef Bool (*Predicate_ptr)(Object,Object);
 typedef void (*Displayer_ptr)(Object);
 
 Node_ptr create_node(Object);
-Node_ptr insert_node(Node_ptr,Object,Predicate_ptr);
-void display_in_order(Node_ptr tree, Displayer_ptr displayer);
-void display_pre_order(Node_ptr tree, Displayer_ptr displayer);
-void display_post_order(Node_ptr tree, Displayer_ptr displayer);
+Tree_ptr create_tree(void);
+Tree_ptr insert_node(Tree_ptr,Object,Predicate_ptr);
+void display_in_order(Node_ptr, Displayer_ptr);
+void display_pre_order(Node_ptr, Displayer_ptr);
+void display_post_order(Node_ptr, Displayer_ptr);
 
 #endif
