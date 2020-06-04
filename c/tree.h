@@ -31,9 +31,20 @@ typedef Tree * Tree_ptr;
 typedef Bool (*Predicate_ptr)(Object,Object);
 typedef void (*Displayer_ptr)(Object);
 
+typedef enum
+{
+  Equal,
+  Lesser,
+  Greater
+} Inequality;
+
+typedef Inequality (*compare_ptr)(Object,Object);
+
 Node_ptr create_node(Object);
 Tree_ptr create_tree(void);
 Tree_ptr insert_node(Tree_ptr,Object,Predicate_ptr);
+Tree_ptr delete_node(Tree_ptr, Object, compare_ptr);
+
 void display_in_order(Node_ptr, Displayer_ptr);
 void display_pre_order(Node_ptr, Displayer_ptr);
 void display_post_order(Node_ptr, Displayer_ptr);
