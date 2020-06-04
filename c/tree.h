@@ -44,6 +44,9 @@ Node_ptr create_node(Object);
 Tree_ptr create_tree(void);
 Tree_ptr insert_node(Tree_ptr,Object,Predicate_ptr);
 Tree_ptr delete_node(Tree_ptr, Object, compare_ptr);
+Tree_ptr right_rotate(Tree_ptr, Object, compare_ptr);
+
+Node_ptr * get_ptr_of_given_node(Node_ptr *, Object, compare_ptr);
 
 void display_in_order(Node_ptr, Displayer_ptr);
 void display_pre_order(Node_ptr, Displayer_ptr);
