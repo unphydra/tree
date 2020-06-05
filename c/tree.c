@@ -104,3 +104,14 @@ Tree_ptr right_rotate(Tree_ptr tree, Object value, compare_ptr compare)
   (*ptr_to_set) = temp;
   return tree;
 }
+
+Tree_ptr left_rotate(Tree_ptr tree, Object value, compare_ptr compare)
+{
+  Node_ptr * ptr_to_set = get_ptr_of_given_node(&tree->root, value, compare);
+  Node_ptr temp = (*ptr_to_set)->right;
+  if (temp==NULL) return tree;
+  (*ptr_to_set)->right = temp->left;
+  temp->left = (*ptr_to_set);
+  (*ptr_to_set) = temp;
+  return tree;
+}
