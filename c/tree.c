@@ -66,12 +66,13 @@ void display_post_order(Node_ptr node, Displayer_ptr displayer)
 Node_ptr * get_ptr_of_given_node(Node_ptr * location_ptr, Object value, compare_ptr compare)
 {
   Node_ptr * ptr_to_get = location_ptr;
-  while (True)
-  {
   Inequality status = (*compare)(value,(*ptr_to_get)->value);
-  if (status == Equal) return ptr_to_get;
+  while (status != Equal)
+  {
   ptr_to_get = status == Lesser ? &(*ptr_to_get)->left : &(*ptr_to_get)->right;
+  status = (*compare)(value,(*ptr_to_get)->value);
   }
+  return ptr_to_get;
 }
 
 Tree_ptr delete_node(Tree_ptr tree, Object value, compare_ptr compare)
