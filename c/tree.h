@@ -10,6 +10,7 @@ typedef void * Object;
 typedef struct node
 {
   Object value;
+  int b_factor;
   struct node * left;
   struct node * right;
 } Node;
@@ -46,6 +47,7 @@ Tree_ptr insert_node(Tree_ptr,Object,Predicate_ptr);
 Tree_ptr delete_node(Tree_ptr, Object, compare_ptr);
 Tree_ptr right_rotate(Tree_ptr, Object, compare_ptr);
 Tree_ptr left_rotate(Tree_ptr, Object, compare_ptr);
+Tree_ptr update_node_balance_factor(Tree_ptr);
 
 Node_ptr * get_ptr_of_given_node(Node_ptr *, Object, compare_ptr);
 

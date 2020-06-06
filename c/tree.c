@@ -4,6 +4,7 @@ Node_ptr create_node(Object value)
 {
   Node_ptr new_node = malloc(sizeof(Node));
   new_node->value = value;
+  new_node->b_factor = 0;
   new_node->left = NULL;
   new_node->right = NULL;
   return new_node;
@@ -23,9 +24,11 @@ Tree_ptr insert_node(Tree_ptr tree, Object value, Predicate_ptr predicate)
   {
     if ((*predicate)(value,(*ptr_to_set)->value))
     {
+      (*ptr_to_set)->b_factor += 1;
       ptr_to_set = &(*ptr_to_set)->left;
     } else
     {
+      (*ptr_to_set)->b_factor -= 1;
       ptr_to_set = &(*ptr_to_set)->right;
     }
   }
@@ -114,5 +117,22 @@ Tree_ptr left_rotate(Tree_ptr tree, Object value, compare_ptr compare)
   (*ptr_to_set)->right = temp->left;
   temp->left = (*ptr_to_set);
   (*ptr_to_set) = temp;
+  return tree;
+}
+
+int get_update_height(Node_ptr node)
+{
+  if (node==NULL) return 0;
+  int left_height = get_update_height(node->left);
+  int right_height = get_update_height(node->right);
+  node->b_factor = left_height - right_height;
+  return (left_height > right_height ? left_height : right_height) + 1;
+}
+
+Tree_ptr update_node_balance_factor(Tree_ptr tree)
+{
+  int left_height = get_update_height(tree->root->left);
+  int right_height = get_update_height(tree->root->right);
+  tree->root->b_factor = left_height - right_height;
   return tree;
 }
