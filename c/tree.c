@@ -84,7 +84,7 @@ Tree_ptr delete_node(Tree_ptr tree, Object value, compare_ptr compare)
   Node_ptr *  ptr_to_swap = ptr_to_delete;
   if ((*ptr_to_swap)->right==NULL){
      (*ptr_to_delete) = (*ptr_to_swap)->left;
-     return tree;
+     return update_node_balance_factor(tree);
   }
   ptr_to_swap = &(*ptr_to_swap)->right;
   while ((*ptr_to_swap)->left!=NULL)
@@ -95,7 +95,7 @@ Tree_ptr delete_node(Tree_ptr tree, Object value, compare_ptr compare)
   Node_ptr temp = (*ptr_to_swap);
   (*ptr_to_swap) = (*ptr_to_swap)->right;
   free(temp);
-  return tree;
+  return update_node_balance_factor(tree);
 }
 
 Tree_ptr right_rotate(Tree_ptr tree, Object value, compare_ptr compare)
@@ -106,7 +106,7 @@ Tree_ptr right_rotate(Tree_ptr tree, Object value, compare_ptr compare)
   (*ptr_to_set)->left = temp->right;
   temp->right = (*ptr_to_set);
   (*ptr_to_set) = temp;
-  return tree;
+  return update_node_balance_factor(tree);
 }
 
 Tree_ptr left_rotate(Tree_ptr tree, Object value, compare_ptr compare)
@@ -117,7 +117,7 @@ Tree_ptr left_rotate(Tree_ptr tree, Object value, compare_ptr compare)
   (*ptr_to_set)->right = temp->left;
   temp->left = (*ptr_to_set);
   (*ptr_to_set) = temp;
-  return tree;
+  return update_node_balance_factor(tree);
 }
 
 int get_update_height(Node_ptr node)
