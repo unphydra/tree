@@ -48,7 +48,7 @@ void display_in_order(Node_ptr node, Displayer_ptr displayer)
 void display_pre_order(Node_ptr node, Displayer_ptr displayer)
 {
   if (node!=NULL)
-  {
+  { 
     (*displayer)(node->value);
     display_pre_order(node->left, displayer);
     display_pre_order(node->right, displayer);
@@ -150,17 +150,15 @@ Tree_ptr update_node_balance_factor(Tree_ptr tree)
 
 Node_ptr * get_unbalanced_node(Node_ptr * node_address)
 {
-  Node_ptr * ub_node_address = malloc(sizeof(Node_ptr));
-  (*ub_node_address) = NULL;
-  if ((*node_address)==NULL) return node_address;
-
+  if ((*node_address)==NULL) return NULL;
+  Node_ptr * ub_node_address = NULL;
   if ((*node_address)->b_factor > 1 || (*node_address)->b_factor < -1)
   {
     ub_node_address = node_address;
   }
   Node_ptr * left = get_unbalanced_node(&((*node_address)->left));
   Node_ptr * right = get_unbalanced_node(&((*node_address)->right));
-  return (*left)!=NULL?left:(*right)!=NULL?right:ub_node_address;
+  return left==NULL ? right==NULL ? ub_node_address : right : left;
 }
 
 Tree_ptr left_right_rotate_on_given_node(Tree_ptr tree, Node_ptr * node_ptr_to_set)
@@ -180,7 +178,7 @@ Tree_ptr right_left_rotate_on_given_node(Tree_ptr tree, Node_ptr * node_ptr_to_s
 Tree_ptr balance_tree(Tree_ptr tree)
 {
   Node_ptr * unbalanced_node = get_unbalanced_node(&tree->root);
-  if ((*unbalanced_node) == NULL) return tree;
+  if (unbalanced_node == NULL) return tree;
   if ((*unbalanced_node)->b_factor > 1)
   {
     if ((*unbalanced_node)->left->b_factor > 0)
