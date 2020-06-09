@@ -47,9 +47,17 @@ Tree_ptr insert_node(Tree_ptr,Object,Predicate_ptr);
 Tree_ptr delete_node(Tree_ptr, Object, compare_ptr);
 Tree_ptr right_rotate(Tree_ptr, Object, compare_ptr);
 Tree_ptr left_rotate(Tree_ptr, Object, compare_ptr);
-Tree_ptr update_node_balance_factor(Tree_ptr);
+Tree_ptr balance_tree(Tree_ptr);
+
+Tree_ptr right_rotate_on_given_node(Tree_ptr, Node_ptr *);
+Tree_ptr left_rotate_on_given_node(Tree_ptr, Node_ptr *);
+Tree_ptr left_right_rotate_on_given_node(Tree_ptr, Node_ptr *);
+Tree_ptr right_left_rotate_on_given_node(Tree_ptr, Node_ptr *);
 
 Node_ptr * get_ptr_of_given_node(Node_ptr *, Object, compare_ptr);
+Tree_ptr update_node_balance_factor(Tree_ptr);
+int get_update_height(Node_ptr);
+Node_ptr * get_unbalanced_node(Node_ptr *);
 
 void display_in_order(Node_ptr, Displayer_ptr);
 void display_pre_order(Node_ptr, Displayer_ptr);
