@@ -31,7 +31,8 @@ Tree_ptr insert_node(Tree_ptr tree, Object value, Predicate_ptr predicate)
     }
   }
   (*ptr_to_set) = create_node(value);
-  return update_node_balance_factor(tree);
+  update_node_balance_factor(tree);
+  return balance_tree(tree);
 }
 
 void display_in_order(Node_ptr node, Displayer_ptr displayer)
@@ -93,7 +94,9 @@ Tree_ptr delete_node(Tree_ptr tree, Object value, compare_ptr compare)
   Node_ptr temp = (*ptr_to_swap);
   (*ptr_to_swap) = (*ptr_to_swap)->right;
   free(temp);
-  return update_node_balance_factor(tree);
+
+  update_node_balance_factor(tree);
+  return balance_tree(tree);
 }
 
 Tree_ptr right_rotate_on_given_node(Tree_ptr tree, Node_ptr * node_ptr_to_set)
@@ -176,5 +179,19 @@ Tree_ptr right_left_rotate_on_given_node(Tree_ptr tree, Node_ptr * node_ptr_to_s
 
 Tree_ptr balance_tree(Tree_ptr tree)
 {
-  return tree;
+  Node_ptr * unbalanced_node = get_unbalanced_node(&tree->root);
+  if ((*unbalanced_node) == NULL) return tree;
+  if ((*unbalanced_node)->b_factor > 1)
+  {
+    if ((*unbalanced_node)->left->b_factor > 0)
+    {
+      return right_rotate_on_given_node(tree, unbalanced_node);
+    }
+    return left_right_rotate_on_given_node(tree, unbalanced_node);
+  }
+  if ((*unbalanced_node)->right->b_factor > 0)
+  {
+    return right_left_rotate_on_given_node(tree, unbalanced_node);
+  }
+  return left_rotate_on_given_node(tree, unbalanced_node);
 }
