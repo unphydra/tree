@@ -105,15 +105,14 @@ Tree_ptr right_rotate_on_given_node(Tree_ptr tree, Node_ptr * node_ptr_to_set)
   (*node_ptr_to_set)->left = temp->right;
   temp->right = (*node_ptr_to_set);
   (*node_ptr_to_set) = temp;
-  return tree;
+  return update_node_balance_factor(tree);
 }
 
 Tree_ptr right_rotate(Tree_ptr tree, Object value, compare_ptr compare)
 {
   Node_ptr * ptr_to_set = get_ptr_of_given_node(&tree->root, value, compare);
   if ((*ptr_to_set)->left==NULL) return tree;
-  right_rotate_on_given_node(tree,ptr_to_set);
-  return update_node_balance_factor(tree);
+  return right_rotate_on_given_node(tree,ptr_to_set);
 }
 
 Tree_ptr left_rotate_on_given_node(Tree_ptr tree, Node_ptr * node_ptr_to_set)
@@ -122,15 +121,14 @@ Tree_ptr left_rotate_on_given_node(Tree_ptr tree, Node_ptr * node_ptr_to_set)
   (*node_ptr_to_set)->right = temp->left;
   temp->left = (*node_ptr_to_set);
   (*node_ptr_to_set) = temp;
-  return tree;
+  return update_node_balance_factor(tree);
 }
 
 Tree_ptr left_rotate(Tree_ptr tree, Object value, compare_ptr compare)
 {
   Node_ptr * ptr_to_set = get_ptr_of_given_node(&tree->root, value, compare);
   if ((*ptr_to_set)->right==NULL) return tree;
-  left_rotate_on_given_node(tree, ptr_to_set);
-  return update_node_balance_factor(tree);
+  return left_rotate_on_given_node(tree, ptr_to_set);
 }
 
 int get_update_height(Node_ptr node)
@@ -168,13 +166,15 @@ Node_ptr * get_unbalanced_node(Node_ptr * node_address)
 Tree_ptr left_right_rotate_on_given_node(Tree_ptr tree, Node_ptr * node_ptr_to_set)
 {
   left_rotate_on_given_node(tree, &(*node_ptr_to_set)->left);
-  return right_rotate_on_given_node(tree, node_ptr_to_set);
+  right_rotate_on_given_node(tree, node_ptr_to_set);
+  return update_node_balance_factor(tree);
 }
 
 Tree_ptr right_left_rotate_on_given_node(Tree_ptr tree, Node_ptr * node_ptr_to_set)
 {
   right_rotate_on_given_node(tree, &(*node_ptr_to_set)->right);
-  return left_rotate_on_given_node(tree, node_ptr_to_set);
+  left_rotate_on_given_node(tree, node_ptr_to_set);
+  return update_node_balance_factor(tree);
 }
 
 Tree_ptr balance_tree(Tree_ptr tree)
